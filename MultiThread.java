@@ -1,22 +1,24 @@
+import java.util.Scanner;
+import java.util.concurrent.*;
+
 public class MultiThread{
-    public static void main(String[] args){
-        System.out.println("MultiThread...");
-        ThreadEx value= new ThreadEx();
-        Thread read= new Thread(new ThreadReader(value));
-        Thread printTotal= new Thread(new ThreadPrintTotal(value));
-        Thread printProduct= new Thread(new ThreadPrintProduct(value));
+	public static void main(String[] args) {
+		ThreadEx thread = new ThreadEx();
 
-        read.start();
-        printTotal.start();
-        printProduct.start();
+		Thread readerThread = new Thread(new ReaderThread(thread));
+		Thread totalThread = new Thread(new TotalThread(thread));
 
-        try{
-            read.join();
-            printTotal.join();
-            printProduct.join();
-        }catch(InterruptedException ie){
+		Thread prodThread = new Thread(new ProductThread(thread));
 
-        }
+		totalThread.start();
+		prodThread.start();
 
-    }
+		readerThread.start();
+
+
+
+	}
+
+
+
 }

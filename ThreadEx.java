@@ -1,33 +1,49 @@
-import java.util.concurrent.*;
 import java.util.Scanner;
 
-public class ThreadEx{
-	int value= 1;
-	public void totalPrinter(){
-		for(;;){
-			try {
-				System.out.println(Thread.currentThread().getName()+": "+value);
-                Thread.currentThread().sleep(1000*2);
-			} catch (InterruptedException ie){}
-		}
-    }
+public class ThreadEx {
+	int num1, num2 = 1;
+	int total = 0;
+	int product = 1;
 
-
-    public void productCalc() {
-        for(;;){
-            try{
-                System.out.println(Thread.currentThread().getName()+": Product: "+(value*value));
-                Thread.currentThread().sleep(1000*3);
-            } catch(InterruptedException ie){
-
-            }
-            
-        }
-    }
 	public void reader(){
-		for(;;){
-			Scanner sc= new Scanner(System.in);
-			value= sc.nextInt();
+		Scanner scanner = new Scanner(System.in);
+
+		while (true) {
+			num1 = scanner.nextInt();
+			num2 = num1;
 		}
+
 	}
+	public void printTotal() {
+		while (true) {
+			try {
+				Thread.currentThread().sleep(3 * 1000);
+			} catch (InterruptedException ie) {}
+
+
+			total += num1;
+
+			num1 = 0;
+			System.out.println("Total sum: " + total);
+		}
+
+	}
+
+
+	public void printProduct() {
+		while (true) {
+			try {
+				Thread.currentThread().sleep(5 * 1000);
+			} catch (InterruptedException ie) {}
+
+
+			product *= num2;
+
+			num2 = 1;
+			System.out.println("Product: " + product);
+		}
+
+	}
+
+
 }
